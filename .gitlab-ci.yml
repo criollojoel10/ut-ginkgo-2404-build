@@ -1,10 +1,10 @@
-image: ubuntu:20.04
 
+image: ubuntu:20.04
 variables:
   DEV_TARBALL_VARIANT: _usrmerge
-  ROOTFS_URL: "https://ci.ubports.com/job/focal-hybris-rootfs-arm64/job/master/lastSuccessfulBuild/artifact/ubuntu-touch-android9plus-rootfs-arm64.tar.gz"
-  OTA_CHANNEL: "20.04/arm64/android9plus/stable"
-
+  OTA_CHANNEL: "24.04-1.x/arm64/android9plus/stable"
+  ROOTFS_URL: "https://ci.ubports.com/job/ubuntu-touch-rootfs/job/ubports%252F24.04-1.x/lastSuccessfulBuild/artifact/ubuntu-touch-android9plus-rootfs-arm64.tar.gz"
+  deviceinfo_ubuntu_touch_release: "24.04-1.x"
 build:
   stage: build
   script:
@@ -39,12 +39,18 @@ devel-flashable:
   script:
     - apt update
     - apt install -y git img2simg jq sudo wget xz-utils
+    - rm -rf "workdir/downloads/KERNEL_OBJ"
+    - rm -rf "/builds/areyoudeveloper/xiaomi-ginkgo-willow/workdir/downloads/ut_kernel_xiaomi_sm6125"
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools build
     - DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
     - ./build/prepare-fake-ota.sh out/device_${DEVICE}${DEV_TARBALL_VARIANT}.tar.xz ota
     - mkdir -p out
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
+    - apt install -y zstd
+    - zstd -15 -T0 out/system.img
+    - rm -f out/system.img
   artifacts:
     paths:
       - out/boot.img
-      - out/system.img
+      - out/system.img.zst
+      - out/dtbo.img

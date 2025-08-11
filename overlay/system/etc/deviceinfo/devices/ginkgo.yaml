@@ -9,7 +9,25 @@ ginkgo:
     - InvertedPortrait
     - Landscape
     - InvertedLandscape
+  BacklightSysfsPath: 
+    - /sys/class/backlight/panel0-backlight
   FlashlightSysfsPath:
     - /sys/class/leds/led:torch_0/brightness
   FlashlightSwitchPath:
     - /sys/class/leds/led:switch_0/brightness
+  DoubleTapToWake: 
+    - /sys/touchpanel/double_tap|1|0
+  RepowerdQtiPerfBooster: true
+  MirAndroidPlatformServerBackpressure:
+    - false
+  MirAndroidPlatformServerPartialUpdates:
+    - true
+  MirAndroidPlatformServerEglSync:
+    - true
+  MirAndroidPlatformClientFenceSync:
+    - all
+  MirAndroidPlatformClientEglFlush:
+    - "!/usr/bin/unity8,!/usr/bin/lomiri,all"
+  RepowerdQtiPerfBooster: true
+  OfonoPlugin: binder
+  OfonoImplementsIms: true
