@@ -37,7 +37,7 @@ devel-flashable:
   stage: deploy
   script:
     - apt update
-    - apt install -y git img2simg jq sudo wget xz-utils
+    - apt install -y git img2simg jq sudo wget xz-utils zip
     - rm -rf "workdir/downloads/KERNEL_OBJ"
     - rm -rf "/builds/areyoudeveloper/xiaomi-ginkgo-willow/workdir/downloads/ut_kernel_xiaomi_sm6125"
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools build
