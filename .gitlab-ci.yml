@@ -1,4 +1,3 @@
-
 image: ubuntu:20.04
 variables:
   DEV_TARBALL_VARIANT: _usrmerge
@@ -46,11 +45,18 @@ devel-flashable:
     - ./build/prepare-fake-ota.sh out/device_${DEVICE}${DEV_TARBALL_VARIANT}.tar.xz ota
     - mkdir -p out
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
-    - apt install -y zstd
-    - zstd -15 -T0 out/system.img
-    - rm -f out/system.img
+    # - apt install -y zstd
+    # - zstd -15 -T0 out/system.img
+    # - zstd -15 -T0 out/rootfs.img
+    - git clone https://github.com/erfanoabdi/ubport_GSI.git out/ubport_GSI
+    - cp out/ out/ubport_GSI/data
+    - cd out/ubport_GSI
+    - zip -r9 ubport_GSI.zip * -x .git README.md data
+    - rm -f out/system.img out/rootfs.img
   artifacts:
     paths:
-      - out/boot.img
-      - out/system.img.zst
-      - out/dtbo.img
+      # - out/boot.img
+      # - out/system.img.zst
+      # - out/dtbo.img
+      # - out/rootfs.img.zst
+      - out/ubport_GSI/ubport_GSI.zip
