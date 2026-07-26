@@ -49,7 +49,8 @@ devel-flashable:
     # - zstd -15 -T0 out/system.img
     # - zstd -15 -T0 out/rootfs.img
     - git clone https://github.com/erfanoabdi/ubport_GSI.git out/ubport_GSI
-    - cp out/ out/ubport_GSI/data
+    - cp out/rootfs.img out/ubport_GSI/data/
+    - cp out/system.img out/ubport_GSI/data/
     - cd out/ubport_GSI
     - zip -r9 ubport_GSI.zip * -x .git README.md data
     - rm -f out/system.img out/rootfs.img
