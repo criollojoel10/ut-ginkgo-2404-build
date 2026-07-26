@@ -53,11 +53,13 @@ devel-flashable:
     - cp out/system.img out/ubport_GSI/data/
     - cd out/ubport_GSI
     - zip -r9 ubport_GSI.zip * -x .git README.md data
-    - rm -f out/system.img out/rootfs.img
+    - zstd -15 -T0 ubport_GSI.zip
+    - rm -f out/system.img out/rootfs.img out/ubport_GSI.zip
   artifacts:
     paths:
       # - out/boot.img
       # - out/system.img.zst
       # - out/dtbo.img
       # - out/rootfs.img.zst
-      - out/ubport_GSI/ubport_GSI.zip
+      # - out/ubport_GSI/ubport_GSI.zip
+      - out/ubport_GSI/ubport_GSI.zip.zst
